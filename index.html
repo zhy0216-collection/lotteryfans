@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Lottery 2014</title>
+    <link rel='stylesheet'  href='./style.css' type='text/css' media='screen' />
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        require('nw.gui').Window.get().showDevTools() 
+
+        _ = require("underscore")
+        PeopleList = require("people").PeopleList;
+        
+
+
+        $(function(){
+            var peopleTemplate = require("swig").compile($("#peopleTemplate").html());
+            var peopleList = (new PeopleList()).initFromFile("./res/text.txt");
+            console.log(peopleList.getPeopleList());
+            //init unknow
+            for(var i=0;i < 6; i++){
+                $(".people-row").append($("#unknowPeopleTemplate").html())
+            }
+
+
+            $(document).on("click", ".people", function(){
+                var people = _.sample(peopleList.getPeopleList())
+                $(this).replaceWith(peopleTemplate({people:people}))
+            })
+
+
+        })
+
+    </script>
+  </head>
+  <body>
+        <div id="people-container">
+            <div class="people-row">
+                
+            </div>
+            <div class="people-row">
+            </div>
+        </div>
+
+
+
+    <script type="text/template" id="unknowPeopleTemplate">
+        <div class="people people-unknow">
+            <img src="./res/icon_background_big_unknown.png">
+        </div>
+    </script>
+
+    <script type="text/template" id="peopleTemplate">
+        <div class="people">
+            <div class="people-card">
+                <div class="people-font">{{people.name}}</div>
+                <div class="people-font">{{people.id}}</div>
+            </div>
+        </div>
+    </script>
+
+
+  </body>
+</html>
