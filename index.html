@@ -10,26 +10,64 @@
 
         _ = require("underscore")
         PeopleList = require("people").PeopleList;
+        People = require("people").People;
         
+        function restore(){
+            if(!localStorage.peopleList){
+                return null;
+            }
+            var peopleData = JSON.parse(localStorage.peopleList)
+            var peopleList = new PeopleList();
+            _.each(peopleData, function(element, index, list){
+                var people = new People(element.id, element.name, element.selected);
+                peopleList.addPeople(people);
+            })
+            return peopleList;
+        }
+
+        function showResult(selectedPeopleList){
+            console.log(selectedPeopleList);
+        }
 
 
         $(function(){
             var peopleTemplate = require("swig").compile($("#peopleTemplate").html());
-            var peopleList = (new PeopleList()).initFromFile("./res/text.txt");
+            var peopleList = restore() || (new PeopleList()).initFromFile("./res/text.txt");
+            var running = false;
             console.log(peopleList.getPeopleList());
             //init unknow
             for(var i=0;i < 6; i++){
                 $(".people-row").append($("#unknowPeopleTemplate").html())
             }
 
+            function _randomSelect(select){
+                $(".people").each(function(){
+                    var people = peopleList.randomSelect(select);
+                    $(this).replaceWith(peopleTemplate({people:people}));
+                })
+            }
 
-            $(document).on("click", ".people", function(){
-                var people = _.sample(peopleList.getPeopleList())
-                $(this).replaceWith(peopleTemplate({people:people}))
+            $(document).on("keyup", function(e){
+                if(e.which == 32 || e.which == 13){ // spacebar or enter 
+                    if(running){
+                        clearInterval(running);
+                        _randomSelect(true);
+                        peopleList.save();
+                        running = false;
+                    }else{
+                        running = setInterval(function(){
+                                    _randomSelect(false);
+                                  }, 1)
+                        console.log(running)
+                    }
+                }else if(e.which == 82){ //r
+                    showResult(peopleList.getSelectPeople());
+                }
+
             })
 
-
         })
+
 
     </script>
   </head>
@@ -40,6 +78,10 @@
             </div>
             <div class="people-row">
             </div>
+        </div>
+
+        <div id="people-result-container">
+
         </div>
 
 
@@ -59,6 +101,17 @@
         </div>
     </script>
 
+    <script type="text/template" id="resultTemplate">
+        <ul>
+            {%for people in peopleList%}
+            <li>
+                <span>{{people.name}}</span>
+                <span>{{people.id}}</span>
+            </li>
+            {%endfor%}
+        </ul>
+
+    </script>
 
   </body>
 </html>
