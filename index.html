@@ -8,8 +8,26 @@
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
         _ = require("underscore");
+
+        PeopleList = require("people").PeopleList;
+        People = require("people").People;
+
         curSlideIndex = 0;
         peopleList = null;
+
+        function initPeopelList(){
+            var limit = 3999;
+            peopleList = new PeopleList();
+            for(var i =0; i <= limit ; i ++){
+                var people = new People(i);
+                peopleList.addPeople(people);
+            }
+            return peopleList
+        }
+
+        function restore(){
+            return null;
+        }
 
 
         function showResult(selectedPeopleList){
@@ -19,18 +37,21 @@
 
         $(function(){
             var running = false;
+            var peopleList = restore() || initPeopelList();
             // console.log(peopleList.getPeopleList());
 
-            
+
 
 
             $(".slide").first().show();
 
-            function _randomSelect(select){
-                $(".people").each(function(){
-                    var people = peopleList.randomSelect(select);
-                    console.log(people)
-                })
+            function _randomSelect(number){
+                var people = peopleList.randomSelect(select);
+                console.log(people)
+            }
+
+            function _randomNumberGen(number){
+
             }
 
             // event bind
@@ -38,12 +59,17 @@
                 if(e.which == 32 || e.which == 13){ // spacebar or enter 
                     if(running){
                         clearInterval(running);
-                        _randomSelect(true);
+                        // if third prize 1 choose
+                        _randomSelect();
                         peopleList.save();
                         running = false;
                     }else{
                         running = setInterval(function(){
-                                    _randomSelect(false);
+                                    // if third prize 5 number gen
+
+                                    _randomNumberGen();
+
+
                                   }, 1)
                         console.log(running)
                     }
@@ -138,7 +164,11 @@
     </div>
 
 
-    
+    <script type="text/javascript" id="numberTemplate">
+        <div class="number">* * {{digit0}} {{digit1}}
+        </div>          
+
+    </script>
 
     <script type="text/template" id="resultTemplate">
         <div id="result-control">
