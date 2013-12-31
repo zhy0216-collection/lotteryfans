@@ -8,7 +8,8 @@
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
         _ = require("underscore");
-        curSlide = null;
+        curSlideIndex = 0;
+        peopleList = null;
 
 
         function showResult(selectedPeopleList){
@@ -19,11 +20,16 @@
         $(function(){
             var running = false;
             // console.log(peopleList.getPeopleList());
-            //init unknow
+
+            
+
+
+            $(".slide").first().show();
+
             function _randomSelect(select){
                 $(".people").each(function(){
                     var people = peopleList.randomSelect(select);
-                    $(this).replaceWith(peopleTemplate({people:people}));
+                    console.log(people)
                 })
             }
 
@@ -43,6 +49,26 @@
                     }
                 }else if(e.which == 82){ //r
                     showResult(peopleList.getSelectPeople());
+                }else if(e.which == 37){ // left arraw
+                    if(curSlideIndex <=0){
+                        return ;
+                    }
+                    var _prevSlide = $($(".slide")[curSlideIndex]);
+                    _prevSlide.hide();
+                    curSlideIndex --;
+                    var nextSlide = $($(".slide")[curSlideIndex]);
+                    nextSlide.show();
+
+                }else if(e.which == 39){ // right arraw
+                    if(curSlideIndex >= $(".slide").length){
+                        return ;
+                    }
+
+                    var _prevSlide = $($(".slide")[curSlideIndex]);
+                    _prevSlide.hide();
+                    curSlideIndex ++;
+                    var nextSlide = $($(".slide")[curSlideIndex]);
+                    nextSlide.show();
                 }
 
             });
@@ -61,29 +87,44 @@
   </head>
   <body>
     <div id="container">
-        <div id="third-prize">
+        <div class="prize" prize="third">
             <div class="prize-show slide">
                 <img src="./res/hm.jpg">
             </div>
 
             <div class="prize-start slide">
+                <div class="preview">
+                    <img src="./res/hm.jpg">
+                </div>
+                <div class="prize-program">
+                    <div class="number">* * 1 2
+                    </div>
+                    <div class="number">* * 1 2
+                    </div>
+                    <div class="number">* * 1 2
+                    </div>
+                    <div class="number">* * 1 2
+                    </div>
+                    <div class="number">* * 1 2
+                    </div>
+                </div>
 
             </div>
 
         </div>
 
-        <div id="second-prize">
+        <div class="prize" prize="second">
             <div class="prize-show slide">
                 <img src="./res/m3.jpg">
             </div>
 
             <div class="prize-start slide">
-                
+
             </div>
 
         </div>
 
-        <div id="third-prize">
+        <div class="prize" prize="first">
             <div class="prize-show slide">
                 <img src="./res/mitv.jpg">
             </div>

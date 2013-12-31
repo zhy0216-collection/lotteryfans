@@ -12,6 +12,14 @@ html {
 }
 
 
+.slide{
+    display: none;
+}
+
+.no-display{
+    display: none;
+}
+
 .result-ul{
     color: white;
     font-size: 25px;
@@ -25,4 +33,17 @@ html {
     left: 0;
     right: 0;
     margin: auto;
+}
+
+.preview img{
+    margin: auto;
+    display: block;
+}
+
+.number{
+    font-size: 55px;
+    color: white;
+    padding: 10px;
+    display: inline-block;
+    width: 18%;
 }
