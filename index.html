@@ -12,7 +12,7 @@
         PeopleList = require("people").PeopleList;
         People = require("people").People;
 
-        curSlideIndex = 0;
+        curPrize = null;
         peopleList = null;
 
         function initPeopelList(){
@@ -37,10 +37,8 @@
 
         $(function(){
             var running = false;
-            var peopleList = restore() || initPeopelList();
+            peopleList = restore() || initPeopelList();
             // console.log(peopleList.getPeopleList());
-
-
 
 
             $(".slide").first().show();
@@ -76,25 +74,7 @@
                 }else if(e.which == 82){ //r
                     showResult(peopleList.getSelectPeople());
                 }else if(e.which == 37){ // left arraw
-                    if(curSlideIndex <=0){
-                        return ;
-                    }
-                    var _prevSlide = $($(".slide")[curSlideIndex]);
-                    _prevSlide.hide();
-                    curSlideIndex --;
-                    var nextSlide = $($(".slide")[curSlideIndex]);
-                    nextSlide.show();
-
-                }else if(e.which == 39){ // right arraw
-                    if(curSlideIndex >= $(".slide").length){
-                        return ;
-                    }
-
-                    var _prevSlide = $($(".slide")[curSlideIndex]);
-                    _prevSlide.hide();
-                    curSlideIndex ++;
-                    var nextSlide = $($(".slide")[curSlideIndex]);
-                    nextSlide.show();
+                
                 }
 
             });
@@ -113,64 +93,39 @@
   </head>
   <body>
     <div id="container">
-        <div class="prize" prize="third">
-            <div class="prize-show slide">
-                <img src="./res/hm.jpg">
-            </div>
-
-            <div class="prize-start slide">
-                <div class="preview">
-                    <img src="./res/hm.jpg">
-                </div>
-                <div class="prize-program">
-                    <div class="number">* * 1 2
-                    </div>
-                    <div class="number">* * 1 2
-                    </div>
-                    <div class="number">* * 1 2
-                    </div>
-                    <div class="number">* * 1 2
-                    </div>
-                    <div class="number">* * 1 2
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="prize" prize="second">
-            <div class="prize-show slide">
-                <img src="./res/m3.jpg">
-            </div>
-
-            <div class="prize-start slide">
-
-            </div>
-
-        </div>
-
-        <div class="prize" prize="first">
-            <div class="prize-show slide">
-                <img src="./res/mitv.jpg">
-            </div>
-
-            <div class="prize-start slide">
-                
-            </div>
-
-        </div>
+        
 
     </div>
 
 
-    <script type="text/javascript" id="numberTemplate">
+    <noscript type="text/javascript" id="numberTemplate">
         <div class="number">* * {{digit0}} {{digit1}}
         </div>          
+    </noscript>
 
-    </script>
+    <noscript type="text/javascript" id="prizeTemplate">
+        <div class="prize" prize="{{prize.degree}}">
+            <div class="prize-show slide">
+                <img src="{{prize.image}}">
+            </div>
 
-    <script type="text/template" id="resultTemplate">
+            <div class="prize-start slide">
+                <div class="preview">
+                    <img src="{{prize.image}}">
+                </div>
+                <div class="prize-program">
+                    {%for i in _.range(5)%}
+                    <div class="number">* * 1 2
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+
+    </noscript>
+
+
+    <noscript type="text/template" id="resultTemplate">
         <div id="result-control">
             <button class="result-reset">reset</button>
             <button class="result-back">back</button>
@@ -184,7 +139,7 @@
             {%endfor%}
         </ul>
 
-    </script>
+    </noscript>
 
   </body>
 </html>
