@@ -44,7 +44,16 @@
         }
 
         function restore(){
-            return null;
+            if(!localStorage.peopleList){
+                return null;
+            }
+            var peopleData = JSON.parse(localStorage.peopleList)
+            var peopleList = new PeopleList();
+            _.each(peopleData, function(element, index, list){
+                var people = new People(element.id, element.name, element.selected);
+                peopleList.addPeople(people);
+            })
+            return peopleList;
         }
 
         function stop(){
@@ -56,13 +65,14 @@
 
 
         function showResult(selectedPeopleList){
-
+            var result = {};
+            
         }
 
 
         $(function(){
             peopleList = restore() || initPeopelList();
-            curPrize = new Prize("./res/third.jpg", 6, peopleList, 2);
+            curPrize = new Prize("./res/third.jpg", 6, peopleList, 2, "third");
             curPrize.show();
             // console.log(peopleList.getPeopleList());
 
@@ -83,6 +93,13 @@
                         console.log("prize start");
                         running = curPrize.run(running);
                     }
+                }else if(e.which == 27){ //esc
+                    // close
+                    var r=confirm("Do you want to leave?");
+                    if (r==true){
+                      require('nw.gui').App.quit();
+                    }
+                    
                 }else if(e.which == 82){ //r
                     showResult(peopleList.getSelectPeople());
                 }else if(e.which == 37){ // left arraw
@@ -94,41 +111,41 @@
                         curPrize.showPrizeProcess();
                         running = curPrize.run(running);
                     }
-                }else if(e.which == "54" || e.which == "102"){ // 6
-                    curPrize = new Prize("./res/third.jpg", 6, peopleList, 2);
+                }else if(e.which == 54 || e.which == 102){ // 6
+                    curPrize = new Prize("./res/third.jpg", 6, peopleList, 2, "third");
                     stop();
                     curPrize.show();
-                }else if(e.which == "56" || e.which == "104"){ // 8
-                    curPrize = new Prize("./res/third.jpg", 8, peopleList, 2);
+                }else if(e.which == 56 || e.which == 104){ // 8
+                    curPrize = new Prize("./res/third.jpg", 8, peopleList, 2, "third");
                     stop();
                     curPrize.show();
-                }else if(e.which == "52" || e.which == "100"){ // 4
-                    curPrize = new Prize("./res/second.jpg", 4, peopleList, 1);
+                }else if(e.which == 52 || e.which == 100){ // 4
+                    curPrize = new Prize("./res/second.jpg", 4, peopleList, 1, "second");
                     stop();
                     curPrize.show();
-                }else if(e.which == "50" || e.which == "98"){ // 2
-                    curPrize = new Prize("./res/second.jpg", 2, peopleList, 1);
+                }else if(e.which == 50 || e.which == 98){ // 2
+                    curPrize = new Prize("./res/second.jpg", 2, peopleList, 1, "second");
                     stop();
                     curPrize.show();
-                }else if(e.which == "49" || e.which == "97"){ // 1
-                    curPrize = new Prize("./res/first.jpg", 2, peopleList, 1);
+                }else if(e.which == 49 || e.which == 97){ // 1
+                    curPrize = new Prize("./res/first.jpg", 2, peopleList, 1, "first");
                     stop();
                     curPrize.show();
-                }else if(e.which == "57" || e.which == "105"){ // 9
-                    curPrize = new Prize(null, 10, peopleList, 5);
+                }else if(e.which == 57 || e.which == 105){ // 9
+                    curPrize = new Prize(null, 10, peopleList, 5, "first-special");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
                     running = curPrize.run(running);
-                }else if(e.which == "48" || e.which == "96"){ // 0
-                    curPrize = new SpecialPrize(null, 1, peopleList, 1);
+                }else if(e.which == 48 || e.which == 96){ // 0
+                    curPrize = new SpecialPrize(null, 1, peopleList, 1, "special-1");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
                     running = curPrize.run(running);
                 }
-                else if(e.which == "53" || e.which == "101"){ // 5
-                    curPrize = new SpecialPrize(null, 5, peopleList, 1);
+                else if(e.which == 53 || e.which == 101){ // 5
+                    curPrize = new SpecialPrize(null, 5, peopleList, 1, "special-5");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
@@ -172,10 +189,10 @@
     <script type="text/template" id="specialNumbersTemplate">
         {%for i in prize.numbers()%}
             {%if prize.selectNumber[i]%}
-                <div class="number number{{prize.numbers().length}}">{{prize.selectNumber[i]}}
+                <div class="number number-special number{{prize.numbers().length}}">{{prize.selectNumber[i]}}
                 </div>
             {%else%}
-                <div class="number number{{prize.numbers().length}}">{{prize.randomNumber()}}
+                <div class="number number-special number{{prize.numbers().length}}">{{prize.randomNumber()}}
                 </div>  
             {%endif%}
         {%endfor%}        
@@ -184,7 +201,9 @@
     <script type="text/template" id="prizeTemplate">
         <div class="prize" prize="{{prize.degree}}">
             <div class="prize-show slide">
+            {%if prize.image%}
                 <img src="{{prize.image}}">
+            {%endif%}
             </div>
 
             <div class="prize-start slide">
@@ -208,13 +227,40 @@
             <button class="result-back">back</button>
         </div>
 
-        <ul class="result-ul"> Total {{peopleList.length}} people
-            {%for people in peopleList%}
-            <li>
-                <span>{{people.id}}</span>
-            </li>
-            {%endfor%}
+        <ul class="result-ul">Third Prize
+        {%for number in thirdNumbers%}
+            <li>* * number</li>
+        {%endfor%}
         </ul>
+
+        <ul class="result-ul">Second Prize
+        {%for number in secondNumbers%}
+            <li>* * number</li>
+        {%endfor%}
+        </ul>
+
+        <ul class="result-ul">First Prize
+        {%for number in firstNumbers%}
+            <li>* * number</li>
+        {%endfor%}
+
+        {%for number in firstSpecialNumbers%}
+            <li>number</li>
+        {%endfor%}
+        </ul>
+
+        <ul class="result-ul">Special Prize choosed 5
+        {%for number in special5Numbers%}
+            <li>number</li>
+        {%endfor%}
+        </ul>
+
+         <ul class="result-ul">Special Prize choosed 1
+        {%for number in special1Numbers%}
+            <li>number</li>
+        {%endfor%}
+        </ul>
+
 
     </script>
 
