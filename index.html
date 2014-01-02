@@ -83,9 +83,25 @@
                 result[keyName] = Object.keys(_temp);
             }
 
+            function _specialProcess(prizeName, keyName){
+                var _temp = {};
+                
+                _.each(_.filter(selectedPeopleList, function(element){
+                            return element.selected == prizeName;
+                      }), function(element){
+                    _temp[element.id] = null;
+                })
+
+                result[keyName] = Object.keys(_temp);
+            }
+
             _process("third", "thirdNumbers");
             _process("second", "secondNumbers");
             _process("first", "firstNumbers");
+
+            _specialProcess("first-special", "firstSpecialNumbers");
+            _specialProcess("special-5", "special5Numbers");
+            _specialProcess("special-1", "special1Numbers");
 
 
             $("#container").html(resultTpl(result));
@@ -122,7 +138,8 @@
                     // close
                     var r=confirm("Do you want to leave?");
                     if (r==true){
-                      require('nw.gui').App.quit();
+                        peopleList.backup();
+                        require('nw.gui').App.quit();
                     }
                     
                 }else if(e.which == 82){ //r
