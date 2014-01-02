@@ -10,10 +10,12 @@
         /**\
         |**| 8 == > 8 prize, stop 2
         |**| 6 == > 6 prize ,stop 2
-        |**| 2 == > 
-        |**| 
-        |**| 
-        |**|
+        |**| 4 == > second prize, 4 prize, stop 1
+        |**| 2 == > second prize, 2 prize, stop 1
+        |**| 1 == > first prize, 2 prize, stop 1
+        |**| 9 == > first prize, 10 prize, stop 5, no picture
+        |**| 5 == > special prize, no picture, 5 prize, stop 1
+        |**| 0 == > special prize, no picture, 1 prize, stop 1
         \**/
 
 
@@ -30,9 +32,9 @@
         running = null;
 
         function initPeopelList(){
-            var limit = 3999;
+            var limit = 3500;
             peopleList = new PeopleList();
-            for(var i =0; i <= limit ; i ++){
+            for(var i =1; i <= limit ; i ++){
                 var people = new People(i);
                 peopleList.addPeople(people);
             }
@@ -67,7 +69,7 @@
 
             function _randomSelect(number){
                 var people = peopleList.randomSelect(select);
-                console.log(people)
+                console.log(people);
             }
 
 
@@ -75,19 +77,62 @@
             // event bind
             $(document).on("keyup", function(e){
                 if(e.which == 32 || e.which == 13){ // spacebar or enter 
-                    running = curPrize.run(running);
+                    if($(".prize-start").is(':visible')){
+                        console.log("prize start");
+                        running = curPrize.run(running);
+                    }
                 }else if(e.which == 82){ //r
                     showResult(peopleList.getSelectPeople());
                 }else if(e.which == 37){ // left arraw
-                    curPrize.showPrizePreview()
+
+                    curPrize.showPrizePreview();
+                    stop();
                 }else if(e.which == 39){ // right arraw
-                    curPrize.showPrizeProcess();
-                    running = curPrize.run(running);
+                    if($(".prize-show").is(':visible')){
+                        curPrize.showPrizeProcess();
+                        running = curPrize.run(running);
+                    }
                 }else if(e.which == "54" || e.which == "102"){ // 6
+                    curPrize = new Prize("./res/third.jpg", 6, peopleList, 2);
+                    stop();
+                    curPrize.show();
+                }else if(e.which == "56" || e.which == "104"){ // 8
                     curPrize = new Prize("./res/third.jpg", 8, peopleList, 2);
                     stop();
-                    curPrize.showPrizePreview();
+                    curPrize.show();
+                }else if(e.which == "52" || e.which == "100"){ // 4
+                    curPrize = new Prize("./res/second.jpg", 4, peopleList, 1);
+                    stop();
+                    curPrize.show();
+                }else if(e.which == "50" || e.which == "98"){ // 2
+                    curPrize = new Prize("./res/second.jpg", 2, peopleList, 1);
+                    stop();
+                    curPrize.show();
+                }else if(e.which == "49" || e.which == "97"){ // 1
+                    curPrize = new Prize("./res/first.jpg", 2, peopleList, 1);
+                    stop();
+                    curPrize.show();
+                }else if(e.which == "57" || e.which == "105"){ // 9
+                    curPrize = new Prize(null, 10, peopleList, 5);
+                    stop();
+                    curPrize.show();
+                    curPrize.showPrizeProcess();
+                    running = curPrize.run(running);
+                }else if(e.which == "48" || e.which == "96"){ // 0
+                    curPrize = new Prize(null, 1, peopleList, 1);
+                    stop();
+                    curPrize.show();
+                    curPrize.showPrizeProcess();
+                    running = curPrize.run(running);
                 }
+                else if(e.which == "53" || e.which == "101"){ // 0
+                    curPrize = new Prize(null, 5, peopleList, 1);
+                    stop();
+                    curPrize.show();
+                    curPrize.showPrizeProcess();
+                    running = curPrize.run(running);
+                }
+
 
             });
 
@@ -130,7 +175,9 @@
 
             <div class="prize-start slide">
                 <div class="preview">
+                {%if prize.image%}
                     <img src="{{prize.image}}">
+                {%endif%}
                 </div>
                 <div class="prize-program">
                     
