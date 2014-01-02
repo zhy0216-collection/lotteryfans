@@ -59,6 +59,16 @@
             return peopleList;
         }
 
+        function reset(){
+            var r=confirm("Do you want to reset?");
+            if (r==true){
+                peopleList.backup();
+                peopleList = initPeopelList();
+                curPrize.peopleList = peopleList;
+                showResult(peopleList.getSelectPeople());
+            }
+        }
+
         function stop(){
             if(running){
                 clearInterval(running);
@@ -174,7 +184,7 @@
                     stop();
                     curPrize.show();
                 }else if(e.which == 57 || e.which == 105){ // 9
-                    curPrize = new Prize(null, 10, peopleList, 5, "first-special");
+                    curPrize = new SpecialPrize(null, 10, peopleList, 5, "first-special");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
@@ -199,9 +209,14 @@
 
             $(document).on("click", ".result-reset", function(){
                 // this is dangerous, always backup data
-                
+                stop();
+                reset();
             })
 
+            $(document).on("click", ".result-back", function(){
+                stop();
+                curPrize.show();
+            })
 
 
         })
