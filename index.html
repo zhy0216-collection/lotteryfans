@@ -20,19 +20,21 @@
 
 
         global.$ = $;
+        global.limit = 3500;
         _ = require("underscore");
 
         PeopleList = require("people").PeopleList;
         People = require("people").People;
 
         Prize =require("prize").Prize;
+        SpecialPrize =require("prize").SpecialPrize;
 
         curPrize = null;
         peopleList = null;
         running = null;
 
         function initPeopelList(){
-            var limit = 3500;
+            var limit = global.limit;
             peopleList = new PeopleList();
             for(var i =1; i <= limit ; i ++){
                 var people = new People(i);
@@ -119,14 +121,14 @@
                     curPrize.showPrizeProcess();
                     running = curPrize.run(running);
                 }else if(e.which == "48" || e.which == "96"){ // 0
-                    curPrize = new Prize(null, 1, peopleList, 1);
+                    curPrize = new SpecialPrize(null, 1, peopleList, 1);
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
                     running = curPrize.run(running);
                 }
-                else if(e.which == "53" || e.which == "101"){ // 0
-                    curPrize = new Prize(null, 5, peopleList, 1);
+                else if(e.which == "53" || e.which == "101"){ // 5
+                    curPrize = new SpecialPrize(null, 5, peopleList, 1);
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
@@ -165,6 +167,12 @@
                 </div>  
             {%endif%}
         {%endfor%}        
+    </script>
+
+    <script type="text/template" id="specialNumbersTemplate">
+        <div class="number number{{prize.numbers().length}}">
+            {{prize.randomNumber()}}
+        </div>
     </script>
 
     <script type="text/template" id="prizeTemplate">
