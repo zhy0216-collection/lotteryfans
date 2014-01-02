@@ -24,6 +24,7 @@ html {
     color: white;
     font-size: 25px;
     margin: 40px;
+    list-style: none;
 }
 
 .prize-show img{

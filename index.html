@@ -22,12 +22,15 @@
         global.$ = $;
         global.limit = 3500;
         _ = require("underscore");
+        swig = require("swig");
 
         PeopleList = require("people").PeopleList;
         People = require("people").People;
 
         Prize =require("prize").Prize;
         SpecialPrize =require("prize").SpecialPrize;
+
+        resultTpl = null;
 
         curPrize = null;
         peopleList = null;
@@ -66,12 +69,34 @@
 
         function showResult(selectedPeopleList){
             var result = {};
-            
+
+            function _process(prizeName, keyName){
+                var _temp = {};
+                
+                _.each(_.filter(selectedPeopleList, function(element){
+                            return element.selected == prizeName;
+                      }), function(element){
+                    var number = element.id % 100;
+                    _temp[number] = null;
+                })
+
+                result[keyName] = Object.keys(_temp);
+            }
+
+            _process("third", "thirdNumbers");
+            _process("second", "secondNumbers");
+            _process("first", "firstNumbers");
+
+
+            $("#container").html(resultTpl(result));
+
         }
 
 
         $(function(){
             peopleList = restore() || initPeopelList();
+            resultTpl = swig.compile($("#resultTemplate").html())
+
             curPrize = new Prize("./res/third.jpg", 6, peopleList, 2, "third");
             curPrize.show();
             // console.log(peopleList.getPeopleList());
@@ -229,35 +254,35 @@
 
         <ul class="result-ul">Third Prize
         {%for number in thirdNumbers%}
-            <li>* * number</li>
+            <li>* * {{number}}</li>
         {%endfor%}
         </ul>
 
         <ul class="result-ul">Second Prize
         {%for number in secondNumbers%}
-            <li>* * number</li>
+            <li>* * {{number}}</li>
         {%endfor%}
         </ul>
 
         <ul class="result-ul">First Prize
         {%for number in firstNumbers%}
-            <li>* * number</li>
+            <li>* * {{number}}</li>
         {%endfor%}
 
         {%for number in firstSpecialNumbers%}
-            <li>number</li>
+            <li>{{number}}</li>
         {%endfor%}
         </ul>
 
         <ul class="result-ul">Special Prize choosed 5
         {%for number in special5Numbers%}
-            <li>number</li>
+            <li>{{number}}</li>
         {%endfor%}
         </ul>
 
          <ul class="result-ul">Special Prize choosed 1
         {%for number in special1Numbers%}
-            <li>number</li>
+            <li>{{number}}</li>
         {%endfor%}
         </ul>
 
