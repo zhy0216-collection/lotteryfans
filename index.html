@@ -170,9 +170,15 @@
     </script>
 
     <script type="text/template" id="specialNumbersTemplate">
-        <div class="number number{{prize.numbers().length}}">
-            {{prize.randomNumber()}}
-        </div>
+        {%for i in prize.numbers()%}
+            {%if prize.selectNumber[i]%}
+                <div class="number number{{prize.numbers().length}}">{{prize.selectNumber[i]}}
+                </div>
+            {%else%}
+                <div class="number number{{prize.numbers().length}}">{{prize.randomNumber()}}
+                </div>  
+            {%endif%}
+        {%endfor%}        
     </script>
 
     <script type="text/template" id="prizeTemplate">
