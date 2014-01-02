@@ -7,16 +7,27 @@
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
+        /**\
+        |**| 8 == > 8 prize, stop 2
+        |**| 6 == > 6 prize ,stop 2
+        |**| 2 == > 
+        |**| 
+        |**| 
+        |**|
+        \**/
+
+
         global.$ = $;
         _ = require("underscore");
 
         PeopleList = require("people").PeopleList;
         People = require("people").People;
 
-        ThirdPrize =require("prize").ThirdPrize;
+        Prize =require("prize").Prize;
 
         curPrize = null;
         peopleList = null;
+        running = null;
 
         function initPeopelList(){
             var limit = 3999;
@@ -46,9 +57,8 @@
 
 
         $(function(){
-            var running = false;
             peopleList = restore() || initPeopelList();
-            curPrize = new ThirdPrize();
+            curPrize = new Prize("./res/third.jpg", 6, peopleList, 2);
             curPrize.show();
             // console.log(peopleList.getPeopleList());
 
@@ -73,6 +83,10 @@
                 }else if(e.which == 39){ // right arraw
                     curPrize.showPrizeProcess();
                     running = curPrize.run(running);
+                }else if(e.which == "54" || e.which == "102"){ // 6
+                    curPrize = new Prize("./res/third.jpg", 8, peopleList, 2);
+                    stop();
+                    curPrize.showPrizePreview();
                 }
 
             });
@@ -98,8 +112,13 @@
 
     <script type="text/template" id="numbersTemplate">
         {%for i in prize.numbers()%}
-            <div class="number">* * {{prize.randomNumber()}} {{prize.randomNumber()}}
-            </div>  
+            {%if prize.selectNumber[i]%}
+                <div class="number number{{prize.numbers().length}}">* * {{prize.selectNumber[i][0]}} {{prize.selectNumber[i][1]}}
+                </div>
+            {%else%}
+                <div class="number number{{prize.numbers().length}}">* * {{prize.randomNumber()}} {{prize.randomNumber()}}
+                </div>  
+            {%endif%}
         {%endfor%}        
     </script>
 
