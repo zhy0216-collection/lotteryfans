@@ -12,7 +12,7 @@ html {
 }
 
 
-.slide{
+#container .slide{
     display: none;
 }
 

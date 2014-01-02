@@ -7,10 +7,13 @@
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
+        global.$ = $;
         _ = require("underscore");
 
         PeopleList = require("people").PeopleList;
         People = require("people").People;
+
+        ThirdPrize =require("prize").ThirdPrize;
 
         curPrize = null;
         peopleList = null;
@@ -29,6 +32,13 @@
             return null;
         }
 
+        function stop(){
+            if(running){
+                clearInterval(running);
+                running = null;
+            }
+        }
+
 
         function showResult(selectedPeopleList){
 
@@ -38,6 +48,8 @@
         $(function(){
             var running = false;
             peopleList = restore() || initPeopelList();
+            curPrize = new ThirdPrize();
+            curPrize.show();
             // console.log(peopleList.getPeopleList());
 
 
@@ -48,33 +60,19 @@
                 console.log(people)
             }
 
-            function _randomNumberGen(number){
 
-            }
 
             // event bind
             $(document).on("keyup", function(e){
                 if(e.which == 32 || e.which == 13){ // spacebar or enter 
-                    if(running){
-                        clearInterval(running);
-                        // if third prize 1 choose
-                        _randomSelect();
-                        peopleList.save();
-                        running = false;
-                    }else{
-                        running = setInterval(function(){
-                                    // if third prize 5 number gen
-
-                                    _randomNumberGen();
-
-
-                                  }, 1)
-                        console.log(running)
-                    }
+                    running = curPrize.run(running);
                 }else if(e.which == 82){ //r
                     showResult(peopleList.getSelectPeople());
                 }else if(e.which == 37){ // left arraw
-                
+                    curPrize.showPrizePreview()
+                }else if(e.which == 39){ // right arraw
+                    curPrize.showPrizeProcess();
+                    running = curPrize.run(running);
                 }
 
             });
@@ -98,12 +96,14 @@
     </div>
 
 
-    <noscript type="text/javascript" id="numberTemplate">
-        <div class="number">* * {{digit0}} {{digit1}}
-        </div>          
-    </noscript>
+    <script type="text/template" id="numbersTemplate">
+        {%for i in prize.numbers()%}
+            <div class="number">* * {{prize.randomNumber()}} {{prize.randomNumber()}}
+            </div>  
+        {%endfor%}        
+    </script>
 
-    <noscript type="text/javascript" id="prizeTemplate">
+    <script type="text/template" id="prizeTemplate">
         <div class="prize" prize="{{prize.degree}}">
             <div class="prize-show slide">
                 <img src="{{prize.image}}">
@@ -114,18 +114,15 @@
                     <img src="{{prize.image}}">
                 </div>
                 <div class="prize-program">
-                    {%for i in _.range(5)%}
-                    <div class="number">* * 1 2
-                    </div>
-                    {%endfor%}
+                    
                 </div>
             </div>
         </div>
 
-    </noscript>
+    </script>
 
 
-    <noscript type="text/template" id="resultTemplate">
+    <script type="text/template" id="resultTemplate">
         <div id="result-control">
             <button class="result-reset">reset</button>
             <button class="result-back">back</button>
@@ -139,7 +136,7 @@
             {%endfor%}
         </ul>
 
-    </noscript>
+    </script>
 
   </body>
 </html>
