@@ -8,11 +8,13 @@
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
         /**\
-        |**| 8 == > 8 prize, stop 2
-        |**| 6 == > 6 prize ,stop 2
+        |**| 8 == > 3rd prize, 8 prize, stop 2
+        |**| 7 == > 3rd prize, 4 prize, stop 2
+        |**| 6 == > 3rd prize, 2 prize ,stop 1
         |**| 4 == > second prize, 4 prize, stop 1
         |**| 2 == > second prize, 2 prize, stop 1
         |**| 1 == > first prize, 2 prize, stop 1
+        |**|
         |**| 9 == > first prize, 10 prize, stop 5, no picture
         |**| 5 == > special prize, no picture, 5 prize, stop 1
         |**| 0 == > special prize, no picture, 1 prize, stop 1
@@ -166,7 +168,11 @@
                         running = curPrize.run(running);
                     }
                 }else if(e.which == 54 || e.which == 102){ // 6
-                    curPrize = new Prize("./res/third.jpg", 6, peopleList, 2, "third");
+                    curPrize = new Prize("./res/third.jpg", 2, peopleList, 1, "third");
+                    stop();
+                    curPrize.show();
+                }else if(e.which == 55 || e.which == 103){ // 7
+                    curPrize = new Prize("./res/third.jpg", 4, peopleList, 2, "third");
                     stop();
                     curPrize.show();
                 }else if(e.which == 56 || e.which == 104){ // 8
