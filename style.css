@@ -1,4 +1,10 @@
-html { 
+@font-face {
+    font-family: "Horatiodmed";
+    src: url(./res/Horatiodmed.ttf);
+}
+
+html {
+  font-family: "Horatiodmed";
   background: url(./res/background.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -39,9 +45,12 @@ html {
 .preview img{
     margin: auto;
     display: block;
+    width: 763px;
+    height: 613px;
 }
 
 .number{
+    font-family: "Horatiodmed";
     font-size: 55px;
     color: white;
     padding: 10px;
