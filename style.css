@@ -52,7 +52,7 @@ html {
 .number{
     font-family: "Horatiodmed";
     font-size: 55px;
-    color: white;
+    color: #fdff67;
     padding: 10px;
     display: inline-block;
     width: 18%;
@@ -66,6 +66,27 @@ html {
     width: 40%;
 }
 
+
+
 .number2{
-    width: 45%;
+    width: 44%;
+    font-size: 230px;
+    margin-left: 40px;
+}
+
+.number2:first-child{
+    text-align: right;
+    margin-right: 40px;
+}
+
+.number4{
+    width: 44%;
+    font-size: 175px;
+    margin-left: 50px;
+}
+
+.number4:first-child,
+.number4:nth-child(4){
+    text-align: right;
+    margin-right: 50px;
 }

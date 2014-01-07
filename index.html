@@ -248,6 +248,15 @@
                 <div class="number number{{prize.numbers().length}}">* * {{prize.randomNumber()}} {{prize.randomNumber()}}
                 </div>  
             {%endif%}
+            {% if !loop.last && 
+                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 )
+
+            %}
+                <span class="divide{{prize.numbers().length}}">
+                    <img src="./res/divide{{prize.numbers().length}}.png" />
+                </span>
+            {% endif %}
+
         {%endfor%}        
     </script>
 
