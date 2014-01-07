@@ -116,6 +116,7 @@
             _process("first", "firstNumbers");
 
             _specialProcess("first-special", "firstSpecialNumbers");
+            _specialProcess("special-10", "special10Numbers");
             _specialProcess("special-5", "special5Numbers");
             _specialProcess("special-1", "special1Numbers");
 
@@ -202,11 +203,26 @@
                     curPrize.showPrizeProcess();
                     running = curPrize.run(running);
                 }else if(e.which == 56 || e.which == 104){ // 8
-                    curPrize = new Prize("./res/third.png", 8, peopleList, 2, "third");
+                    curPrize = new Prize("./res/fourth.jpg", 6, peopleList, 6, "fourth");
                     stop();
                     curPrize.show();
-                }else if(e.which == 81){ // Q == > 1
+                }
+
+                // for special prize
+                else if(e.which == 81){ // Q == > 1
                     curPrize = new SpecialPrize(null, 1, peopleList, 1, "special-1");
+                    stop();
+                    curPrize.show();
+                    curPrize.showPrizeProcess();
+                    running = curPrize.run(running);
+                }else if(e.which == 87){ // W == > 5
+                    curPrize = new SpecialPrize(null, 5, peopleList, 1, "special-5");
+                    stop();
+                    curPrize.show();
+                    curPrize.showPrizeProcess();
+                    running = curPrize.run(running);
+                }else if(e.which == 69){ // E == > 10
+                    curPrize = new SpecialPrize(null, 10, peopleList, 5, "special-10");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
@@ -249,8 +265,7 @@
                 <div class="number number{{prize.numbers().length}}">* * {{prize.randomNumber()}} {{prize.randomNumber()}}</div>  
             {%endif%}
             {% if !loop.last && 
-                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 )
-
+                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 || prize.numbers().length % 6 ==0 && loop.index % 3 ==0)
             %}
                 <span class="divide{{prize.numbers().length}}">
                     <img src="./res/divide{{prize.numbers().length}}.png" />
@@ -325,6 +340,12 @@
         {%endfor%}
 
         {%for number in firstSpecialNumbers%}
+            <li>{{number}}</li>
+        {%endfor%}
+        </ul>
+
+        <ul class="result-ul">Special Prize choosed 10
+        {%for number in special10Numbers%}
             <li>{{number}}</li>
         {%endfor%}
         </ul>

@@ -83,6 +83,7 @@ margin-left: 40px;
 vertical-align: super;
 }
 
+
 .number3:first-child{
     margin-left: 40px;
 }
@@ -100,6 +101,16 @@ font-size: 175px;
 .number4:first-child,
 .number4:nth-child(4){
     margin-left: 500px;
+}
+
+.number6{
+width: 485px;
+font-size: 175px;
+}
+
+.number6:first-child,
+.number6:nth-child(6){
+    margin-left: 200px;
 }
 
 .number8{
