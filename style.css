@@ -58,10 +58,6 @@ html {
     width: 18%;
 }
 
-.number8{
-    width: 21%;
-}
-
 .number6{
     width: 40%;
 }
@@ -90,3 +86,49 @@ html {
     text-align: right;
     margin-right: 50px;
 }
+
+.number8{
+    width: 21%;
+    vertical-align: super;
+    font-size: 145px;
+}
+
+.number8:first-child,
+.number8:nth-child(7){
+    margin-left: 30px;
+}
+
+.number8:nth-child(4),
+.number8:nth-child(10){
+    margin-left: 130px;
+}
+
+.number-special.number1{
+    font-size: 251px;
+    margin-top: 22%;
+    margin-left: 40%;
+}
+
+.number-special.number5{
+    font-size: 128px;
+    width: 280px;
+    margin-top: 24%;
+}
+
+.number-special.number5:first-child{
+    margin-left: 230px;
+}
+
+.number-special.number10{
+    font-size: 128px;
+    width: 280px;
+}
+.number-special.number10:first-child{
+    margin-top: 20%;
+    margin-left: 230px;
+
+}
+.number-special.number10:nth-child(6){
+    margin-left: 230px;
+}
+
