@@ -8,6 +8,7 @@
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
         /**\
+        |**| f == > 4th prize, 5 prize, stop 1
         |**| 8 == > 3rd prize, 8 prize, stop 2
         |**| 7 == > 3rd prize, 4 prize, stop 2
         |**| 6 == > 3rd prize, 2 prize ,stop 1
@@ -109,6 +110,7 @@
                 result[keyName] = Object.keys(_temp).sort();
             }
 
+            _process("fourth", "fourthNumbers");
             _process("third", "thirdNumbers");
             _process("second", "secondNumbers");
             _process("first", "firstNumbers");
@@ -167,6 +169,10 @@
                         curPrize.showPrizeProcess();
                         running = curPrize.run(running);
                     }
+                }else if(e.which == 70){ // f
+                    curPrize = new Prize("./res/fourth.jpg", 5, peopleList, 1, "fourth");
+                    stop();
+                    curPrize.show();
                 }else if(e.which == 54 || e.which == 102){ // 6
                     curPrize = new Prize("./res/third.png", 2, peopleList, 1, "third");
                     stop();
@@ -300,6 +306,12 @@
             <button class="result-reset">reset</button>
             <button class="result-back">back</button>
         </div>
+
+        <ul class="result-ul">Fourth Prize
+        {%for number in fourthNumbers%}
+            <li>* * {{number}}</li>
+        {%endfor%}
+        </ul>
 
         <ul class="result-ul">Third Prize
         {%for number in thirdNumbers%}

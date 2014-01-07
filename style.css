@@ -103,6 +103,14 @@ html {
     margin-left: 130px;
 }
 
+.number5{
+    font-size: 90px;
+    width: 250px;
+}
+.number5:first-child{
+margin-left: 245px;
+margin-top: 55PX;
+}
 .number-special.number1{
     font-size: 251px;
     margin-top: 22%;
