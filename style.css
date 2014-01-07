@@ -75,16 +75,31 @@ html {
     margin-right: 40px;
 }
 
+
+.number3{
+width: 565px;
+font-size: 210px;
+margin-left: 40px;
+vertical-align: super;
+}
+
+.number3:first-child{
+    margin-left: 40px;
+}
+.divide3{
+    position: relative;
+    top: 15px;
+}
+
+
 .number4{
-    width: 44%;
-    font-size: 175px;
-    margin-left: 50px;
+width: 485px;
+font-size: 175px;
 }
 
 .number4:first-child,
 .number4:nth-child(4){
-    text-align: right;
-    margin-right: 50px;
+    margin-left: 500px;
 }
 
 .number8{
