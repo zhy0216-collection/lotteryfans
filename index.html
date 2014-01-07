@@ -127,7 +127,7 @@
             peopleList = restore() || initPeopelList();
             resultTpl = swig.compile($("#resultTemplate").html())
 
-            curPrize = new Prize("./res/third.jpg", 2, peopleList, 1, "third");
+            curPrize = new Prize("./res/third.png", 2, peopleList, 1, "third");
             curPrize.show();
             // console.log(peopleList.getPeopleList());
 
@@ -168,27 +168,27 @@
                         running = curPrize.run(running);
                     }
                 }else if(e.which == 54 || e.which == 102){ // 6
-                    curPrize = new Prize("./res/third.jpg", 2, peopleList, 1, "third");
+                    curPrize = new Prize("./res/third.png", 2, peopleList, 1, "third");
                     stop();
                     curPrize.show();
                 }else if(e.which == 55 || e.which == 103){ // 7
-                    curPrize = new Prize("./res/third.jpg", 4, peopleList, 2, "third");
+                    curPrize = new Prize("./res/third.png", 4, peopleList, 2, "third");
                     stop();
                     curPrize.show();
                 }else if(e.which == 56 || e.which == 104){ // 8
-                    curPrize = new Prize("./res/third.jpg", 8, peopleList, 2, "third");
+                    curPrize = new Prize("./res/third.png", 8, peopleList, 2, "third");
                     stop();
                     curPrize.show();
                 }else if(e.which == 52 || e.which == 100){ // 4
-                    curPrize = new Prize("./res/second.jpg", 4, peopleList, 1, "second");
+                    curPrize = new Prize("./res/second.png", 4, peopleList, 1, "second");
                     stop();
                     curPrize.show();
                 }else if(e.which == 50 || e.which == 98){ // 2
-                    curPrize = new Prize("./res/second.jpg", 2, peopleList, 1, "second");
+                    curPrize = new Prize("./res/second.png", 2, peopleList, 1, "second");
                     stop();
                     curPrize.show();
                 }else if(e.which == 49 || e.which == 97){ // 1
-                    curPrize = new Prize("./res/first.jpg", 2, peopleList, 1, "first");
+                    curPrize = new Prize("./res/first.png", 2, peopleList, 1, "first");
                     stop();
                     curPrize.show();
                 }else if(e.which == 57 || e.which == 105){ // 9
