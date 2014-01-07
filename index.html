@@ -8,17 +8,19 @@
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
         /**\
-        |**| f == > 4th prize, 5 prize, stop 1
-        |**| 8 == > 3rd prize, 8 prize, stop 2
-        |**| 7 == > 3rd prize, 4 prize, stop 2
-        |**| 6 == > 3rd prize, 2 prize ,stop 1
-        |**| 4 == > second prize, 4 prize, stop 1
-        |**| 2 == > second prize, 2 prize, stop 1
-        |**| 1 == > first prize, 2 prize, stop 1
+        |**| 1 == > 3rd prize, 8 prize, stop 2
+        |**| 2 == > 3rd prize, 8 prize, stop 2
+        |**| 3 == > 2nd prize, 4 prize, stop 2
+        |**| 4 == > 2nd prize, 3 prize ,stop 1
+        |**| 5 == > 1st prize, 3 prize, stop 1
+        |**| 6 == > 1st prize, 10 prize, stop 5, no picture
+        |**| 7 == > 4th prize, 6 prize, stop 6
         |**|
-        |**| 9 == > first prize, 10 prize, stop 5, no picture
-        |**| 5 == > special prize, no picture, 5 prize, stop 1
-        |**| 0 == > special prize, no picture, 1 prize, stop 1
+        |**| Q == > special 1
+        |**| W == > special 5
+        |**| E == > special 10
+        |**| R == > result
+        |**|
         \**/
 
 
@@ -202,6 +204,10 @@
                     curPrize.show();
                     curPrize.showPrizeProcess();
                     running = curPrize.run(running);
+                }else if(e.which == 55 || e.which == 103){ // 7
+                    curPrize = new Prize("./res/fourth.jpg", 6, peopleList, 6, "fourth");
+                    stop();
+                    curPrize.show();
                 }else if(e.which == 56 || e.which == 104){ // 8
                     curPrize = new Prize("./res/fourth.jpg", 6, peopleList, 6, "fourth");
                     stop();
