@@ -36,6 +36,7 @@
 
         Prize =require("prize").Prize;
         SpecialPrize =require("prize").SpecialPrize;
+        SinglePrize =require("prize").SinglePrize;
 
         resultTpl = null;
 
@@ -132,7 +133,7 @@
             peopleList = restore() || initPeopelList();
             resultTpl = swig.compile($("#resultTemplate").html())
 
-            curPrize = new Prize("./res/third.png", 8, peopleList, 2, "third");
+            curPrize = new SinglePrize("./res/third.png", 8, peopleList, 2, "third");
             curPrize.show();
             // console.log(peopleList.getPeopleList());
 
@@ -308,6 +309,12 @@
                 </div>  
             {%endif%}
         {%endfor%}        
+    </script>
+
+    <script type="text/template" id="singleNumbersTemplate">
+                <div class="number number1">* * {%if prize.digit0 != null  %}{{prize.digit0}} {%else%}{{prize.randomNumber()}} {%endif%}
+                                                {%if prize.digit1 != null  %}{{prize.digit1}} {%else%}{{prize.randomNumber()}} {%endif%}
+                </div>
     </script>
 
     <script type="text/template" id="prizeTemplate">
