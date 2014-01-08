@@ -133,7 +133,7 @@
             peopleList = restore() || initPeopelList();
             resultTpl = swig.compile($("#resultTemplate").html())
 
-            curPrize = new SinglePrize("./res/third.png", 8, peopleList, 2, "third");
+            curPrize = new SinglePrize("./res/third.png", 2, peopleList, 1, "third");
             curPrize.show();
             // console.log(peopleList.getPeopleList());
 
@@ -312,9 +312,18 @@
     </script>
 
     <script type="text/template" id="singleNumbersTemplate">
-                <div class="number number1">* * {%if prize.digit0 != null  %}{{prize.digit0}} {%else%}{{prize.randomNumber()}} {%endif%}
-                                                {%if prize.digit1 != null  %}{{prize.digit1}} {%else%}{{prize.randomNumber()}} {%endif%}
+            {%for i in prize.numbers()%}
+                <div class="number number{{prize.numbers().length}}">* * {%if prize.digit0[i] != null  %}{{prize.digit0[i]}} {%else%}{{prize.randomNumber()}} {%endif%}
+                                                {%if prize.digit1[i] != null  %}{{prize.digit1[i]}} {%else%}{{prize.randomNumber()}} {%endif%}
                 </div>
+                {% if !loop.last && 
+                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 || prize.numbers().length % 6 ==0 && loop.index % 3 ==0)
+                %}
+                    <span class="divide{{prize.numbers().length}}">
+                        <img src="./res/divide{{prize.numbers().length}}.png" />
+                    </span>
+                {% endif %}
+            {% endfor %}
     </script>
 
     <script type="text/template" id="prizeTemplate">

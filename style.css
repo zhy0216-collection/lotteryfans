@@ -72,14 +72,15 @@ html {
 
 
 .number2{
-    width: 44%;
+    width: 33%;
     font-size: 230px;
     margin-left: 40px;
 }
 
 .number2:first-child{
-    text-align: right;
-    margin-right: 40px;
+margin-left: 280px;
+margin-right: 20px;
+vertical-align: super;
 }
 
 
