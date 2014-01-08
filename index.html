@@ -170,7 +170,7 @@
                 }else if(e.which == 39){ // right arraw
                     if($(".prize-show").is(':visible')){
                         curPrize.showPrizeProcess();
-                        running = curPrize.run(running);
+                        // running = curPrize.run(running);
                     }
                 }
                 // else if(e.which == 70){ // f
@@ -203,7 +203,6 @@
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
-                    running = curPrize.run(running);
                 }else if(e.which == 55 || e.which == 103){ // 7
                     curPrize = new Prize("./res/fourth.jpg", 6, peopleList, 6, "fourth");
                     stop();
@@ -220,19 +219,16 @@
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
-                    running = curPrize.run(running);
                 }else if(e.which == 87){ // W == > 5
                     curPrize = new SpecialPrize(null, 5, peopleList, 1, "special-5");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
-                    running = curPrize.run(running);
                 }else if(e.which == 69){ // E == > 10
                     curPrize = new SpecialPrize(null, 10, peopleList, 5, "special-10");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
-                    running = curPrize.run(running);
                 }
                 
 
@@ -262,6 +258,27 @@
 
     </div>
 
+
+    <script type="text/template" id="startTemplate">
+        {%for i in prize.numbers()%}
+                <div class="number number{{prize.numbers().length}}">* * * *</div>  
+            {% if !loop.last && 
+                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 || prize.numbers().length % 6 ==0 && loop.index % 3 ==0)
+            %}
+                <span class="divide{{prize.numbers().length}}">
+                    <img src="./res/divide{{prize.numbers().length}}.png" />
+                </span>
+            {% endif %}
+
+        {%endfor%}        
+    </script>
+
+    <script type="text/template" id="specialStartTemplate">
+        {%for i in prize.numbers()%}
+                <div class="number number-special number{{prize.numbers().length}}">****
+                </div>
+        {%endfor%}        
+    </script>
 
     <script type="text/template" id="numbersTemplate">
         {%for i in prize.numbers()%}
