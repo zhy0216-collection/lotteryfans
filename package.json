@@ -2,7 +2,7 @@
   "name": "lottery-2014",
   "main": "index.html",
   "window": {
-      "toolbar": true,
+      "toolbar": false,
      // "fullscreen":true,
       // "kiosk":true,
       "frame": true

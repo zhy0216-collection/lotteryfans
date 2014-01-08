@@ -176,6 +176,8 @@
                         curPrize.showPrizeProcess();
                         // running = curPrize.run(running);
                     }
+                }else if(e.which == 122){ // F11
+                        require('nw.gui').Window.get().toggleKioskMode();
                 }
                 // else if(e.which == 70){ // f
                 //     curPrize = new Prize("./res/fourth.jpg", 5, peopleList, 1, "fourth");
