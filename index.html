@@ -118,6 +118,9 @@
             _process("second", "secondNumbers");
             _process("first", "firstNumbers");
 
+
+            _specialProcess("mao", "specialMaoNumbers");
+            _specialProcess("special9", "special9Numbers");
             _specialProcess("first-special", "firstSpecialNumbers");
             _specialProcess("special-10", "special10Numbers");
             _specialProcess("special-5", "special5Numbers");
@@ -133,7 +136,7 @@
             peopleList = restore() || initPeopelList();
             resultTpl = swig.compile($("#resultTemplate").html())
 
-            curPrize = new SinglePrize("./res/third.png", 2, peopleList, 1, "third");
+            curPrize = new Prize("./res/third.png", 8, peopleList, 2, "third");
             curPrize.show();
             // console.log(peopleList.getPeopleList());
 
@@ -188,30 +191,36 @@
                     stop();
                     curPrize.show();
                 }else if(e.which == 51 || e.which == 99){ // 3
-                    curPrize = new Prize("./res/second.png", 4, peopleList, 2, "second");
+                    curPrize = new Prize("./res/second.png", 2, peopleList, 1, "second");
                     stop();
                     curPrize.show();
                 }else if(e.which == 52 || e.which == 100){ // 4
-                    curPrize = new Prize("./res/second.png", 3, peopleList, 1, "second");
+                    curPrize = new Prize("./res/second.png", 5, peopleList, 1, "second");
                     stop();
                     curPrize.show();
                 }else if(e.which == 53 || e.which == 101){ // 5
-                    curPrize = new Prize("./res/first.png", 3, peopleList, 1, "first");
+                    curPrize = new SinglePrize("./res/first.png", 1, peopleList, 1, "first");
                     stop();
                     curPrize.show();
                 }else if(e.which == 54 || e.which == 102){ // 6
-                    curPrize = new SpecialPrize(null, 10, peopleList, 5, "first-special");
+                    curPrize = new SpecialPrize(null, 10, peopleList, 10, "first-special");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
                 }else if(e.which == 55 || e.which == 103){ // 7
-                    curPrize = new Prize("./res/fourth.png", 6, peopleList, 6, "fourth");
+                    curPrize = new Prize("./res/fourth.png", 10, peopleList, 10, "fourth");
                     stop();
                     curPrize.show();
                 }else if(e.which == 56 || e.which == 104){ // 8
-                    curPrize = new Prize("./res/fourth.png", 6, peopleList, 6, "fourth");
+                    curPrize = new SpecialPrize(null, 2, peopleList, 1, "mao");
                     stop();
                     curPrize.show();
+                    curPrize.showPrizeProcess();
+                }else if(e.which == 57 || e.which == 105){ // 9
+                    curPrize = new SpecialPrize(null, 1, peopleList, 1, "special9");
+                    stop();
+                    curPrize.show();
+                    curPrize.showPrizeProcess();
                 }
 
                 // for special prize
@@ -264,7 +273,7 @@
         {%for i in prize.numbers()%}
                 <div class="number number{{prize.numbers().length}}">* * * *</div>  
             {% if !loop.last && 
-                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 || prize.numbers().length % 6 ==0 && loop.index % 3 ==0)
+                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 || prize.numbers().length % 6 ==0 && loop.index % 3 ==0 || prize.numbers().length % 10 ==0 && loop.index % 5 ==0)
             %}
                 <span class="divide{{prize.numbers().length}}">
                     <img src="./res/divide{{prize.numbers().length}}.png" />
@@ -289,7 +298,7 @@
                 <div class="number number{{prize.numbers().length}}">* * {{prize.randomNumber()}} {{prize.randomNumber()}}</div>  
             {%endif%}
             {% if !loop.last && 
-                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 || prize.numbers().length % 6 ==0 && loop.index % 3 ==0)
+                    !(prize.numbers().length % 4 ==0 && loop.index % 2 == 0 || prize.numbers().length % 6 ==0 && loop.index % 3 ==0 || prize.numbers().length % 10 ==0 && loop.index % 5 ==0)
             %}
                 <span class="divide{{prize.numbers().length}}">
                     <img src="./res/divide{{prize.numbers().length}}.png" />
@@ -379,6 +388,18 @@
         {%endfor%}
 
         {%for number in firstSpecialNumbers%}
+            <li>{{number}}</li>
+        {%endfor%}
+        </ul>
+
+        <ul class="result-ul">毛里求斯
+        {%for number in specialMaoNumbers%}
+            <li>{{number}}</li>
+        {%endfor%}
+        </ul>
+
+        <ul class="result-ul">Special turn 9
+        {%for number in special9Numbers%}
             <li>{{number}}</li>
         {%endfor%}
         </ul>
