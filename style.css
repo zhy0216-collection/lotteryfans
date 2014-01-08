@@ -10,6 +10,7 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height: 1080px;
 }
 
 *{
@@ -46,7 +47,7 @@ html {
     margin: auto;
     display: block;
     width: 763px;
-    height: 613px;
+    /*height: 613px;*/
 }
 
 .number{
