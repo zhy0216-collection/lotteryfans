@@ -121,6 +121,7 @@
             _process("first", "firstNumbers");
 
 
+            _specialProcess("youlun", "youlunNumbers");
             _specialProcess("mao", "specialMaoNumbers");
             _specialProcess("special9", "special9Numbers");
             _specialProcess("first-special", "firstSpecialNumbers");
@@ -187,7 +188,7 @@
                 //     curPrize.show();
                 // }
                 else if(e.which == 48 || e.which == 96){ // 0
-                    curPrize = new SpecialPrize("./res/youlun.png", 1, peopleList, 1, "special-youlun");
+                    curPrize = new SpecialPrize("./res/youlun.png", 1, peopleList, 1, "youlun");
                     stop();
                     curPrize.show();
                     curPrize.showPrizeProcess();
@@ -409,6 +410,12 @@
 
         <ul class="result-ul">Special turn 9
         {%for number in special9Numbers%}
+            <li>{{number}}</li>
+        {%endfor%}
+        </ul>
+
+         <ul class="result-ul">Youlun
+        {%for number in youlunNumbers%}
             <li>{{number}}</li>
         {%endfor%}
         </ul>
