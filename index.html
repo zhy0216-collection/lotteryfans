@@ -119,6 +119,8 @@
             _process("third", "thirdNumbers");
             _process("second", "secondNumbers");
             _process("first", "firstNumbers");
+            _process("dianying", "dianyingNumbers");
+
 
 
             _specialProcess("youlun", "youlunNumbers");
@@ -234,7 +236,11 @@
                 }
 
                 // for special prize
-                else if(e.which == 81){ // Q == > 1
+                else if(e.which == 68){ // D == > 1
+                    curPrize = new Prize(null, 1, peopleList, 1, "dianying");
+                    stop();
+                    curPrize.show();
+                }else if(e.which == 81){ // Q == > 1
                     curPrize = new SpecialPrize(null, 1, peopleList, 1, "special-1");
                     stop();
                     curPrize.show();
@@ -417,6 +423,12 @@
          <ul class="result-ul">Youlun
         {%for number in youlunNumbers%}
             <li>{{number}}</li>
+        {%endfor%}
+        </ul>
+
+        <ul class="result-ul">Dian Ying
+        {%for number in dianyingNumbers%}
+            <li>* * {{number}}</li>
         {%endfor%}
         </ul>
 
