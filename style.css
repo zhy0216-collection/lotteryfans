@@ -167,8 +167,9 @@ margin-top: 55PX;
 }
 .number-special.number1{
     font-size: 251px;
-    margin-top: 22%;
-    margin-left: 40%;
+    position: absolute;
+    top: 430px;
+    left: 100px;
 }
 .number-special.number2:first-child{
     /*margin-top: 450px;*/

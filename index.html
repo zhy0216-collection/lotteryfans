@@ -8,6 +8,8 @@
     <script type="text/javascript">
         require('nw.gui').Window.get().showDevTools();
         /**\
+        |**| 0 == > you lun, 1 prize, stop 1
+        |**| 
         |**| 1 == > 3rd prize, 8 prize, stop 2
         |**| 2 == > 3rd prize, 8 prize, stop 2
         |**| 3 == > 2nd prize, 4 prize, stop 2
@@ -184,7 +186,12 @@
                 //     stop();
                 //     curPrize.show();
                 // }
-                else if(e.which == 49 || e.which == 97){ // 1
+                else if(e.which == 48 || e.which == 96){ // 0
+                    curPrize = new SpecialPrize("./res/youlun.png", 1, peopleList, 1, "special-youlun");
+                    stop();
+                    curPrize.show();
+                    curPrize.showPrizeProcess();
+                }else if(e.which == 49 || e.which == 97){ // 1
                     curPrize = new Prize("./res/third.png", 8, peopleList, 2, "third");
                     stop();
                     curPrize.show();
